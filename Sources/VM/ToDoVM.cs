@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using Model;
 
 namespace VM
@@ -30,8 +31,7 @@ namespace VM
             get => Model.IsDone;
             set
             {
-                //WeakReferenceMessenger.Default.Send(this);   TODO: migrated to this tool
-                if (value != Model.IsDone) MessagingCenter.Send(this, "StatusChanged", nameof(IsDone));
+                if (value != Model.IsDone) WeakReferenceMessenger.Default.Send(new ToDoVMessage(this));
                 SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
             }
         }
@@ -50,6 +50,13 @@ namespace VM
         public ToDoVM(ToDo model)
         {
             Model = model;
+        }
+    }
+
+    public class ToDoVMessage : ValueChangedMessage<ToDoVM>
+    {
+        public ToDoVMessage(ToDoVM value) : base(value)
+        {
         }
     }
 }

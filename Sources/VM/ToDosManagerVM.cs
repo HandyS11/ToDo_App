@@ -35,11 +35,7 @@ namespace VM
             ToDosNotDone = new ReadOnlyObservableCollection<ToDoVM>(toDosNotDone);
             ToDosDone = new ReadOnlyObservableCollection<ToDoVM>(toDosDone);
 
-            /*WeakReferenceMessenger.Default.Register<ToDoVM>(this, (r, n) =>
-            {
-                Task.Run(async () => await LoadToDos());
-            });*/
-            MessagingCenter.Subscribe<ToDoVM, string>(this, "StatusChanged", (sender, propertyName) =>
+            WeakReferenceMessenger.Default.Register<ToDoVMessage>(this, (r, n) =>
             {
                 Task.Run(async () => await LoadToDos());
             });
