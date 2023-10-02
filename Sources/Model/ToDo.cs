@@ -8,6 +8,8 @@
         public string? Description { get; set; }
         public DateTime CreationDate { get; private set; }
 
+        public ToDo(string title) : this(title, "") { }
+
         public ToDo(string title, string description)
         {
             if (string.IsNullOrEmpty(title))
