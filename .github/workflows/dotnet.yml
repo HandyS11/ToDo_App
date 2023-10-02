@@ -20,7 +20,7 @@ jobs:
     - name: Install .NET MAUI
       run: dotnet workload install maui
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Sources/ToDo_Sogeti.sln
     - name: Build
       run: dotnet build Sources/ToDoApp/ToDoApp.csproj -c Release -f net7.0-android --no-restore
 #    - name: Test
