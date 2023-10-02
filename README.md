@@ -11,13 +11,14 @@ You can find the context [here](./CONTEXT.md)
 ## 📊 Features
 
 **Done:**
--  Setup the repo
+-  Setup the repository & CI
+- Create the Model
+- Create the VM
 
 **Not Done yet:**
-- Create the Model
+
 - Create the MAUI sample
-- Create the VM
-- Create the EF Model
+- Create the EF Model &/or local Databse
 - Create the MAUI front
 - Link everything together
 
@@ -36,7 +37,11 @@ You can find the context [here](./CONTEXT.md)
 
 | Sketchs | App |
 | --- | --- |
-| <img src="./Documentation/sketchs/" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
+| <img src="./Documentation/sketchs/HomePage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> |
+| <img src="./Documentation/sketchs/ToDosPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
+| <img src="./Documentation/sketchs/ToDoPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
+| <img src="./Documentation/sketchs/NewToDoPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
+| <img src="./Documentation/sketchs/EditToDoPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
 </details>
 
 ## ⚙️ Architecture
@@ -49,7 +54,13 @@ You can find the context [here](./CONTEXT.md)
 classDiagram
 
 class ToDo {
+    +-/Id
     +/Title
+    +/IsDone
+    +/Description
+    +-/CreationDate
+    ToDo(string title)
+    ToDo(string title, string description)
 }
 ```
 </details>
@@ -61,9 +72,30 @@ class ToDo {
 ```mermaid
 classDiagram
 
+class AppVM {
+    +-/NavigateBackCommand : ICommand
+    ..
+}
+AppVM --> "1" ToDoManagerVM : ToDoManagerVM
+
+class ToDoManagerVM {
+    +-/Datamanager : IDataManager
+    - LoadToDos() Task
+    + AddToDo(ToDoVM vm) Task
+    + EditToDo(ToDoVM vm) Task
+    + DeleteToDo(ToDoVM vm) Task
+}
+ToDoManagerVM --> "1" ToDoVM : SelectedTodo
+ToDoManagerVM --> "*" ToDoVM : Todos
+
 class ToDoVM {
     +/Model
+    +-/Id
     +/Title
+    +/IsDone
+    +/Description
+    +-/CreationDate
+    ToDoVM(ToDo model)
 }
 ```
 </details>
