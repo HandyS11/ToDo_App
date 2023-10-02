@@ -26,7 +26,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Sources/ToDo_Sogeti.sln
     - name: Build
-      run: dotnet build Sources/ToDoApp/ToDoApp.csproj -c Release -f net7.0-android /p:AndroidSigninKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=ghactionkey /p:AndroidSigningKeyPass="${{ secret.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secret.KEYSTORE_PASSWORD }}" --no-restore
+      run: dotnet build Sources/ToDoApp/ToDoApp.csproj -c Release -f net7.0-android /p:AndroidSigninKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=ghactionkey /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD }}" --no-restore
 #    - name: Test
 #      run: dotnet test --no-build --verbosity normal
     - name: Upload a Build Artifact
