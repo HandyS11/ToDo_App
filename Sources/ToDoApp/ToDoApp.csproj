@@ -55,7 +55,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\VM\VM.csproj" />
+		<ProjectReference Include="..\VM\VM.csproj" />
 	</ItemGroup>
 
 </Project>
