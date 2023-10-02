@@ -1,5 +1,7 @@
 # TOTO_SOGETI
 
+![](https://github.com/HandyS11/ToDo_Sogeti/actions/workflows/dotnet.yml/badge.svg)
+
 ## 📝 Purpose
 
 Create a **TODO** application to showcase developpement skills with [.NET](https://learn.microsoft.com/en-us/dotnet/)
