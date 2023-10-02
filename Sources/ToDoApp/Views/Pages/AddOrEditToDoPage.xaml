@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vmlocal="clr-namespace:ToDoApp.ViewModels"
+             x:Class="ToDoApp.Views.Pages.AddOrEditToDoPage"
+             Shell.TabBarIsVisible="False"
+             x:DataType="vmlocal:AppVM"
+             Title="{Binding AddOrEditToDoVM.IsNewToDo, Converter={StaticResource navigationTextAddOrEditToDo}}">
+
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vmlocal="clr-namespace:ToDoApp.ViewModels"
+             xmlns:views="clr-namespace:ToDoApp.Views.Parts"
+             x:Class="ToDoApp.Views.Pages.ToDosPage"
+             x:DataType="vmlocal:AppVM"
+             Title="ToDos">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Command="{Binding GoToAddTodoCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding ToDosManagerVM.LoadToDosCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <toolkit:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter"/>
+        <toolkit:InvertedBoolConverter x:Key="invertedBool"/>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView Margin="5">
+            <VerticalStackLayout>
+                <toolkit:Expander IsExpanded="{Binding ToDosManagerVM.IsTodosNotDoneExpanded}">
+                    <toolkit:Expander.Header>
+                        <Grid>
+                            <Label Text="Not Done"
+                                   FontAttributes="Bold"
+                                   FontSize="18"/>
+                            <Image IsVisible="{Binding ToDosManagerVM.IsTodosNotDoneExpanded, Converter={StaticResource invertedBool}}"
+                                   Source="arrow_left.png" 
+                                   Style="{StaticResource expanderImage}">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
+                                </Image.Behaviors>
+                            </Image>
+                            <Image IsVisible="{Binding ToDosManagerVM.IsTodosNotDoneExpanded}"
+                                   Source="arrow_down.png" 
+                                   Style="{StaticResource expanderImage}">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
+                                </Image.Behaviors>
+                            </Image>
+                        </Grid>
+                    </toolkit:Expander.Header>
+                    <ListView ItemsSource="{Binding ToDosManagerVM.ToDosNotDone}"
+                              IsRefreshing="{Binding ToDosManagerVM.IsBusy}"
+                              RefreshCommand="{Binding ToDosManagerVM.LoadToDosCommand}"
+                              IsPullToRefreshEnabled="True"
+                              SelectionMode="None"
+                              RowHeight="40"
+                              Margin="5">
+                        <ListView.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="ItemTapped"
+                                                            EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                                                            Command="{Binding GoToToDoDetailCommand}"/>
+                        </ListView.Behaviors>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <views:TodoItemView/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </toolkit:Expander>
+                <toolkit:Expander IsExpanded="{Binding ToDosManagerVM.IsTodosDoneExpanded}">
+                    <toolkit:Expander.Header>
+                        <Grid>
+                            <Label Text="Done"
+                                   FontAttributes="Bold"
+                                   FontSize="18"/>
+                            <Image IsVisible="{Binding ToDosManagerVM.IsTodosDoneExpanded, Converter={StaticResource invertedBool}}"
+                                   Source="arrow_left.png" 
+                                   Style="{StaticResource expanderImage}">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
+                                </Image.Behaviors>
+                            </Image>
+                            <Image IsVisible="{Binding ToDosManagerVM.IsTodosDoneExpanded}"
+                                   Source="arrow_down.png" 
+                                   Style="{StaticResource expanderImage}">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
+                                </Image.Behaviors>
+                            </Image>
+                        </Grid>
+                    </toolkit:Expander.Header>
+                    <ListView ItemsSource="{Binding ToDosManagerVM.ToDosDone}"
+                              IsRefreshing="{Binding ToDosManagerVM.IsBusy}"
+                              RefreshCommand="{Binding ToDosManagerVM.LoadToDosCommand}"
+                              IsPullToRefreshEnabled="True"
+                              SelectionMode="None"
+                              RowHeight="40"
+                              Margin="5">
+                        <ListView.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="ItemTapped"
+                                                            EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                                                            Command="{Binding GoToToDoDetailCommand}"/>
+                        </ListView.Behaviors>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <views:TodoItemView/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </toolkit:Expander>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

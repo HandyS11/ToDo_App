@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using Model;
 
 namespace VM
@@ -21,12 +22,18 @@ namespace VM
         public string Title
         {
             get => Model.Title;
+            set => SetProperty(Model.Title, value, Model, (m, v) => m.Title = v);
         }
 
         public bool IsDone
         {
             get => Model.IsDone;
-            set => SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
+            set
+            {
+                //WeakReferenceMessenger.Default.Send(this);   TODO: migrated to this tool
+                if (value != Model.IsDone) MessagingCenter.Send(this, "StatusChanged", nameof(IsDone));
+                SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
+            }
         }
 
         public string Description

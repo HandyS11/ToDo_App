@@ -1,12 +1,17 @@
-﻿namespace ToDoApp
+﻿using ToDoApp.ViewModels;
+
+namespace ToDoApp
 {
     public partial class App : Application
     {
-        public App()
+        public AppVM AppVM { get; private set; }
+
+        public App(AppVM appVM)
         {
             InitializeComponent();
-
             MainPage = new AppShell();
+
+            AppVM = appVM;
         }
     }
 }
