@@ -11,15 +11,14 @@ You can find the context [here](./CONTEXT.md)
 ## 📊 Features
 
 **Done:**
--  Setup the repository & CI
+- Setup the repository & CI
 - Create the Model
 - Create the VM
+- Create the MAUI front
 
 **Not Done yet:**
 
-- Create the MAUI sample
 - Create the EF Model &/or local Databse
-- Create the MAUI front
 - Link everything together
 
 ## 🛠 Languages & tools
@@ -48,17 +47,17 @@ You can find the context [here](./CONTEXT.md)
 
 > Theses diagrams are not fully accurate and only gave the global idea of the conception.
 
-<details><summary> Models </summary>
+<details><summary> Model </summary>
 
 ```mermaid
 classDiagram
 
 class ToDo {
-    +-/Id
-    +/Title
-    +/IsDone
-    +/Description
-    +-/CreationDate
+    +-/Id : Guid
+    +/Title : string
+    +/IsDone : bool
+    +/Description : string
+    +-/CreationDate : DateTime
     ToDo(string title)
     ToDo(string title, string description)
 }
@@ -73,30 +72,45 @@ class ToDo {
 classDiagram
 
 class AppVM {
-    +-/NavigateBackCommand : ICommand
-    ..
+    +/NavigateBackCommand : ICommand
+    +/GoToToDoDetail(ToDoVM vm)
+    +/GoToAddTodo()
+    +/GoToEditTodo(ToDoVM vm)
+    +/AddToDo()
+    +/EditToDo()
+    +/DeleteToDo()
 }
 AppVM --> "1" ToDoManagerVM : ToDoManagerVM
 
 class ToDoManagerVM {
     +-/Datamanager : IDataManager
+    +/SelectedTodo ToDoVM
     - LoadToDos() Task
     + AddToDo(ToDoVM vm) Task
     + EditToDo(ToDoVM vm) Task
     + DeleteToDo(ToDoVM vm) Task
 }
 ToDoManagerVM --> "1" ToDoVM : SelectedTodo
-ToDoManagerVM --> "*" ToDoVM : Todos
+ToDoManagerVM --> "*" ToDoVM : ToDosNotDone
+ToDoManagerVM --> "*" ToDoVM : ToDosDone
 
 class ToDoVM {
-    +/Model
-    +-/Id
-    +/Title
-    +/IsDone
-    +/Description
-    +-/CreationDate
+    +/Model : ToDo
+    +-/Id : Guid
+    +/Title : string
+    +/IsDone : bool
+    +/Description : string
+    +-/CreationDate : DateTime
     ToDoVM(ToDo model)
 }
+
+class AddOrEditToDoVM {
+    +/IsNewToDo : bool
+    +/EditTitle : string
+    +/EditDescription : string
+    Clone(ToDoVM vm)
+}
+AddOrEditToDoVM ..|> ToDoVM
 ```
 </details>
 
