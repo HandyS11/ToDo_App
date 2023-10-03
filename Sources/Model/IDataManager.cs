@@ -14,7 +14,7 @@
 
         // EDITs
         Task<ToDo?> AddTodo(ToDo todo);
-        Task<ToDo?> UpdateTodo(Guid id, ToDo todo);
+        Task<ToDo?> UpdateTodo(ToDo todo);
         Task<bool> DeleteTodo(ToDo todo);
 
     }
