@@ -10,7 +10,8 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit"
-                     Command="{Binding GoToEditToDoCommand}"/>
+                     Command="{Binding GoToEditToDoCommand}"
+                     CommandParameter="{Binding ToDosManagerVM.SelectedToDo}"/>
         <ToolbarItem Text="Delete"
                      Command="{Binding DeleteToDoCommand}"/>
     </ContentPage.ToolbarItems>
@@ -22,7 +23,7 @@
     <ScrollView Margin="5">
         <VerticalStackLayout>
             <FlexLayout AlignItems="Start" AlignContent="Start">
-                <Label Text="Creation date: "/>
+                <Label Text="Created on: "/>
                 <Label Text="{Binding ToDosManagerVM.SelectedToDo.CreationDate, Converter={StaticResource dateTimeToDate}}"/>
             </FlexLayout>
             <Entry IsReadOnly="True"

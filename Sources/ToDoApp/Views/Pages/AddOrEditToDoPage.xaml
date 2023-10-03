@@ -8,10 +8,31 @@
              x:DataType="vmlocal:AppVM"
              Title="{Binding AddOrEditToDoVM.IsNewToDo, Converter={StaticResource navigationTextAddOrEditToDo}}">
 
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ContentPage.Resources>
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter"/>
+    </ContentPage.Resources>
+
+    <ScrollView Margin="5">
+        <VerticalStackLayout>
+            <Label Text="Title:"/>
+            <Entry Text="{Binding AddOrEditToDoVM.EditTitle}"/>
+            <Label Text="Description:"/>
+            <Entry Text="{Binding AddOrEditToDoVM.EditDescription}"/>
+            <Grid VerticalOptions="End"
+                  HorizontalOptions="Center"
+                  Grid.Column="2"
+                  ColumnDefinitions="*, *"
+                  ColumnSpacing="50">
+                <Button Text="Add"
+                        IsVisible="{Binding AddOrEditToDoVM.IsNewToDo}"
+                        Command="{Binding AddToDoCommand}"/>
+                <Button Text="Edit"
+                        IsVisible="{Binding AddOrEditToDoVM.IsNewToDo, Converter={StaticResource invertedBoolConverter}}"
+                        Command="{Binding EditToDoCommand}"/>
+                <Button Grid.Column="1" 
+                        Text="Cancel"
+                        Command="{Binding NavigateBackCommand}"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

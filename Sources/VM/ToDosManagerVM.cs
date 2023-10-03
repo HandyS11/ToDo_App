@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Model;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace VM
 {
@@ -35,9 +36,10 @@ namespace VM
             ToDosNotDone = new ReadOnlyObservableCollection<ToDoVM>(toDosNotDone);
             ToDosDone = new ReadOnlyObservableCollection<ToDoVM>(toDosDone);
 
-            WeakReferenceMessenger.Default.Register<ToDoVMessage>(this, (r, n) =>
+            WeakReferenceMessenger.Default.Register<ToDoVMessage>(this, async (r, n) =>
             {
-                Task.Run(async () => await LoadToDos());
+                if (await DataManager.UpdateTodo(n.Value.Model) == null) Debug.WriteLine("ERROR WHILE UPDATING TODO");
+                await LoadToDos();
             });
         }
 
@@ -48,7 +50,7 @@ namespace VM
             toDosDone.Clear();
             toDosNotDone.Clear();
             var tds = await DataManager.GetAllToDos();
-            foreach (var td in tds.OrderBy(t => t.CreationDate))
+            foreach (var td in tds.OrderByDescending(t => t.CreationDate))
             {
                 if (td.IsDone)
                 {
@@ -73,30 +75,54 @@ namespace VM
         [RelayCommand]
         public async Task AddToDo(ToDoVM vm)
         {
-            if (await DataManager.AddTodo(vm.Model) != null)
+            try
             {
+                if (await DataManager.AddTodo(vm.Model) == null)
+                {
+                    return;
+                }
                 SelectedToDo = vm;
                 await LoadToDos();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
             }
         }
 
         [RelayCommand]
         public async Task EditTodo(ToDoVM vm)
         {
-            if (await DataManager.UpdateTodo(SelectedToDo.Id, vm.Model) != null)
+            try
             {
+                if (await DataManager.UpdateTodo(vm.Model) == null)
+                {
+                    return;
+                }
                 SelectedToDo = vm;
                 await LoadToDos();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
             }
         }
 
         [RelayCommand]
         public async Task DeleteToDo()
         {
-            if (await DataManager.DeleteTodo(SelectedToDo.Model))
+            try
             {
+                if (!await DataManager.DeleteTodo(SelectedToDo.Model))
+                {
+                    return;
+                }
                 SelectedToDo = null;
                 await LoadToDos();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
             }
         }
     }
