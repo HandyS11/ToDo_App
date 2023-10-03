@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="ToDoApp.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ToDoApp"
-    Shell.FlyoutBehavior="Disabled">
+<Shell x:Class="ToDoApp.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+       xmlns:views="clr-namespace:ToDoApp.Views.Pages"
+       Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Tertiary}"/>
 
+    </Shell.Behaviors>
+    <TabBar>
+        <ShellContent Title="Home"
+                      Icon="home.png"
+                      ContentTemplate="{DataTemplate views:HomePage}"
+                      Route="Home" />
+
+        <ShellContent Title="ToDos"
+                      Icon="load.png"
+                      ContentTemplate="{DataTemplate views:ToDosPage}"
+                      Route="ToDos" />
+    </TabBar>
 </Shell>

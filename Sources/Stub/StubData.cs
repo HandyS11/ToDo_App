@@ -23,24 +23,29 @@ namespace Stub
             toDos[6].IsDone = true;
         }
 
-        /* NOT POSSIBLE IN STUB */
         public Task<ToDo?> AddTodo(ToDo todo)
         {
-            throw new MethodAccessException();
+            toDos.Add(todo);
+            return Task.FromResult<ToDo?>(todo);
         }
 
-        public Task<ToDo?> UpdateTodo(Guid id, ToDo todo)
+        public Task<ToDo?> UpdateTodo(ToDo todo)
         {
-            throw new MethodAccessException();
+            var td = toDos.Find(t => t.Id == todo.Id);
+            if (td == null) return Task.FromResult<ToDo?>(null);
+            td.Title = todo.Title;
+            td.IsDone = todo.IsDone;
+            td.Description = todo.Description;
+            return Task.FromResult<ToDo?>(td);
+
         }
 
         public Task<bool> DeleteTodo(ToDo todo)
         {
-            throw new MethodAccessException();
+            var b = toDos.Remove(todo);
+            return Task.FromResult(b);
         }
 
-
-        /* GETs */
         public Task<IEnumerable<ToDo>> GetAllToDos()
         {
             return Task.FromResult<IEnumerable<ToDo>>(toDos);
@@ -58,12 +63,12 @@ namespace Stub
 
         public Task<ToDo?> GetToDosById(Guid id)
         {
-            return Task.FromResult(toDos.FirstOrDefault(td => td.Id == id));
+            return Task.FromResult(toDos.Find(td => td.Id == id));
         }
 
         public Task<ToDo?> GetToDosByTitle(string title)
         {
-            return Task.FromResult(toDos.FirstOrDefault(td => td.Title == title));
+            return Task.FromResult(toDos.Find(td => td.Title == title));
         }
 
         public Task<int> GetToDosCount()

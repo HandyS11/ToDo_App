@@ -22,6 +22,8 @@ namespace VM
             {
                 IsNewToDo = true;
                 Model = new ToDo("EMPTY_TITLE");
+                EditTitle = "";
+                EditDescription = "";
             }
             else
             {

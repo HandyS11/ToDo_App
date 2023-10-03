@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using Model;
 
 namespace VM
@@ -21,12 +23,17 @@ namespace VM
         public string Title
         {
             get => Model.Title;
+            set => SetProperty(Model.Title, value, Model, (m, v) => m.Title = v);
         }
 
         public bool IsDone
         {
             get => Model.IsDone;
-            set => SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
+            set
+            {
+                if (value != Model.IsDone) WeakReferenceMessenger.Default.Send(new ToDoVMessage(this));
+                SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
+            }
         }
 
         public string Description
@@ -43,6 +50,13 @@ namespace VM
         public ToDoVM(ToDo model)
         {
             Model = model;
+        }
+    }
+
+    public class ToDoVMessage : ValueChangedMessage<ToDoVM>
+    {
+        public ToDoVMessage(ToDoVM value) : base(value)
+        {
         }
     }
 }

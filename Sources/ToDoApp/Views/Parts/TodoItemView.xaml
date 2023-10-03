@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:vm="clr-namespace:VM;assembly=VM"
+          xmlns:vmlocal="clr-namespace:ToDoApp.ViewModels"
+          x:Class="ToDoApp.Views.Parts.TodoItemView"
+          x:DataType="vm:ToDoVM">
+
+    <Grid ColumnSpacing="5"
+          ColumnDefinitions="*, 50">
+        <Label Text="{Binding Title}"
+               VerticalOptions="Center"/>
+        <CheckBox Grid.Column="1"
+                  IsChecked="{Binding IsDone}"/>
+    </Grid>
+</ViewCell>

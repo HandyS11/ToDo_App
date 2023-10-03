@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vmlocal="clr-namespace:ToDoApp.ViewModels"
+             xmlns:converters="clr-namespace:ToDoApp.Converters"
+             x:Class="ToDoApp.Views.Pages.ToDoDetailPage"
+             x:DataType="vmlocal:AppVM"
+             Title="{Binding ToDosManagerVM.SelectedToDo.Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit"
+                     Command="{Binding GoToEditToDoCommand}"
+                     CommandParameter="{Binding ToDosManagerVM.SelectedToDo}"/>
+        <ToolbarItem Text="Delete"
+                     Command="{Binding DeleteToDoCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <converters:DateTimeToImprovedDate x:Key="dateTimeToDate"/>
+    </ContentPage.Resources>
+
+    <ScrollView Margin="5">
+        <VerticalStackLayout>
+            <FlexLayout AlignItems="Start" AlignContent="Start">
+                <Label Text="Created on: "/>
+                <Label Text="{Binding ToDosManagerVM.SelectedToDo.CreationDate, Converter={StaticResource dateTimeToDate}}"/>
+            </FlexLayout>
+            <Entry IsReadOnly="True"
+                   Text="{Binding ToDosManagerVM.SelectedToDo.Description}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
