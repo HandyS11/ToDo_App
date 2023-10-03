@@ -65,14 +65,6 @@ namespace VM
         }
 
         [RelayCommand]
-        private async Task ChangeToDoState(ToDoVM vm)
-        {
-            vm.IsDone = vm.IsDone!;
-            await EditTodo(vm);
-            await LoadToDos();
-        }
-
-        [RelayCommand]
         public async Task AddToDo(ToDoVM vm)
         {
             try
