@@ -11,15 +11,16 @@ You can find the context [here](./CONTEXT.md)
 ## 📊 Features
 
 **Done:**
-- A list of ToDos (2 in deed)
-- A detail page of every ToDo
-- A edit/delete button on the detail page
-- A Add/Edit page for ToDos
-- All ToDos are save on the phone Database
-- If there's no ToDo, the database is mokecked with ToDos
+- Display my ToDo list
+- A detail page for ToDos
+- Add/Edit a ToDo
+- Detele a ToDo
+- Locally stored ToDos
+- Database populated with some ToDos
+
 **NotDone:**
 - Test the code
-- Improve the Lycicle of the app (add an OnClose I beg)
+- Improve the Lyfecicle of the app (no OnClose..)
 
 ## 🛠 Languages & tools
 
