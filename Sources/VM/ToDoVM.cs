@@ -31,8 +31,15 @@ namespace VM
             get => Model.IsDone;
             set
             {
-                if (value != Model.IsDone) WeakReferenceMessenger.Default.Send(new ToDoVMessage(this));
-                SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
+                if (value != Model.IsDone)      // Too lazy to rewrite SetProperty
+                {
+                    SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
+                    WeakReferenceMessenger.Default.Send(new ToDoVMessage(this));
+                }
+                else
+                {
+                    SetProperty(Model.IsDone, value, Model, (m, v) => m.IsDone = v);
+                }
             }
         }
 

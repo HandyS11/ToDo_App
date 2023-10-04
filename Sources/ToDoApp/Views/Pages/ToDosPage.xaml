@@ -15,7 +15,10 @@
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior EventName="Loaded"
-                                        Command="{Binding ToDosManagerVM.LoadToDosCommand}"/>
+                                        Command="{Binding ToDosManagerVM.LoadFromDatabaseCommand}"/>
+        <!--<toolkit:EventToCommandBehavior EventName="Destroy"     
+                                        Command="{Binding ToDosManagerVM.SaveToDatabaseCommand}"/>-->
+        <!-- I would like to use something like that but it doesn't exists.. -->
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
@@ -50,7 +53,7 @@
                     </toolkit:Expander.Header>
                     <ListView ItemsSource="{Binding ToDosManagerVM.ToDosNotDone}"
                               IsRefreshing="{Binding ToDosManagerVM.IsBusy}"
-                              RefreshCommand="{Binding ToDosManagerVM.LoadToDosCommand}"
+                              RefreshCommand="{Binding ToDosManagerVM.RefreshToDosCommand}"
                               IsPullToRefreshEnabled="True"
                               SelectionMode="None"
                               RowHeight="40"
@@ -67,7 +70,8 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </toolkit:Expander>
-                <toolkit:Expander IsExpanded="{Binding ToDosManagerVM.IsTodosDoneExpanded}">
+                <toolkit:Expander Margin="0,10,0,0" 
+                                  IsExpanded="{Binding ToDosManagerVM.IsTodosDoneExpanded}">
                     <toolkit:Expander.Header>
                         <Grid>
                             <Label Text="Done"
@@ -91,7 +95,7 @@
                     </toolkit:Expander.Header>
                     <ListView ItemsSource="{Binding ToDosManagerVM.ToDosDone}"
                               IsRefreshing="{Binding ToDosManagerVM.IsBusy}"
-                              RefreshCommand="{Binding ToDosManagerVM.LoadToDosCommand}"
+                              RefreshCommand="{Binding ToDosManagerVM.RefreshToDosCommand}"
                               IsPullToRefreshEnabled="True"
                               SelectionMode="None"
                               RowHeight="40"

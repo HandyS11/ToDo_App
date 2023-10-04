@@ -23,27 +23,37 @@ namespace Stub
             toDos[6].IsDone = true;
         }
 
-        public Task<ToDo?> AddTodo(ToDo todo)
+        public Task AddTodo(ToDo todo)
         {
-            toDos.Add(todo);
-            return Task.FromResult<ToDo?>(todo);
+            return Task.Run(() => toDos.Add(todo));
         }
 
-        public Task<ToDo?> UpdateTodo(ToDo todo)
+        public Task SaveTodo(ToDo todo)
         {
-            var td = toDos.Find(t => t.Id == todo.Id);
-            if (td == null) return Task.FromResult<ToDo?>(null);
-            td.Title = todo.Title;
-            td.IsDone = todo.IsDone;
-            td.Description = todo.Description;
-            return Task.FromResult<ToDo?>(td);
+            if (toDos.Contains(todo))
+            {
+                return UpdateTodo(todo);
+            }
+            return AddTodo(todo);
+        }
 
+        public Task UpdateTodo(ToDo todo)
+        {
+            return Task.Run(() =>
+            {
+                var td = toDos.Find(t => t.Id == todo.Id);
+                if (td != null)
+                {
+                    td.Title = todo.Title;
+                    td.IsDone = todo.IsDone;
+                    td.Description = todo.Description;
+                }
+            });
         }
 
         public Task<bool> DeleteTodo(ToDo todo)
         {
-            var b = toDos.Remove(todo);
-            return Task.FromResult(b);
+            return Task.FromResult(toDos.Remove(todo));
         }
 
         public Task<IEnumerable<ToDo>> GetAllToDos()

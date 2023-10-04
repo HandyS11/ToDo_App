@@ -13,8 +13,9 @@
         Task<IEnumerable<ToDo>> GetAllToDos();
 
         // EDITs
-        Task<ToDo?> AddTodo(ToDo todo);
-        Task<ToDo?> UpdateTodo(ToDo todo);
+        Task AddTodo(ToDo todo);
+        Task UpdateTodo(ToDo todo);
+        Task SaveTodo(ToDo todo);
         Task<bool> DeleteTodo(ToDo todo);
 
     }

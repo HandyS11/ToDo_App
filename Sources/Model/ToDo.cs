@@ -24,6 +24,15 @@
             CreationDate = DateTime.Now;
         }
 
+        public ToDo(Guid id, string title, bool isDone, string description, DateTime creationDate)
+        {
+            Id = id;
+            Title = title;
+            IsDone = isDone;
+            Description = description;
+            CreationDate = creationDate;
+        }
+
         public override string ToString()
         {
             return $"{CreationDate} : {Title} - {Description}";

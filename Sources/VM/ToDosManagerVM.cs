@@ -15,6 +15,8 @@ namespace VM
         public ReadOnlyObservableCollection<ToDoVM> ToDosDone { get; private set; }
         private ObservableCollection<ToDoVM> toDosDone { get; set; } = new();
 
+        private List<ToDoVM> toDos { get; set; } = new();
+
         [ObservableProperty]
         private ToDoVM selectedToDo = new(new ToDo("EMPTY_TITLE"));
 
@@ -36,45 +38,65 @@ namespace VM
             ToDosNotDone = new ReadOnlyObservableCollection<ToDoVM>(toDosNotDone);
             ToDosDone = new ReadOnlyObservableCollection<ToDoVM>(toDosDone);
 
-            WeakReferenceMessenger.Default.Register<ToDoVMessage>(this, async (r, n) =>
+            WeakReferenceMessenger.Default.Register<ToDoVMessage>(this, (r, n) =>
             {
-                if (await DataManager.UpdateTodo(n.Value.Model) == null) Debug.WriteLine("ERROR WHILE UPDATING TODO");
-                await LoadToDos();
+                RefreshToDos();
             });
         }
 
         [RelayCommand]
-        private async Task LoadToDos()
+        public async Task LoadFromDatabase()
+        {
+            var todos = await DataManager.GetAllToDos();
+            toDos.Clear();
+            foreach (var td in todos)
+            {
+                toDos.Add(new(td));
+            }
+            RefreshToDos();
+        }
+
+        [RelayCommand]
+        public async Task SaveToDatabase()
+        {
+            var todos = ToDosDone.ToList();
+            todos.AddRange(ToDosNotDone);
+            foreach (var td in todos)
+            {
+                await DataManager.SaveTodo(td.Model);
+            }
+        }
+
+        [RelayCommand]
+        private void RefreshToDos()
         {
             IsBusy = true;
             toDosDone.Clear();
             toDosNotDone.Clear();
-            var tds = await DataManager.GetAllToDos();
-            foreach (var td in tds.OrderByDescending(t => t.CreationDate))
+            foreach (var td in toDos.OrderByDescending(t => t.CreationDate))
             {
                 if (td.IsDone)
                 {
-                    toDosDone.Add(new(td));
+                    toDosDone.Add(td);
                 }
                 else
                 {
-                    toDosNotDone.Add(new(td));
+                    toDosNotDone.Add(td);
                 }
             }
             IsBusy = false;
+
+            Task.Run(() => SaveToDatabase());       // Due to the lack of QUIT/DESTROY event in MAUI
         }
 
         [RelayCommand]
-        public async Task AddToDo(ToDoVM vm)
+        public void AddToDo(ToDoVM vm)
         {
             try
             {
-                if (await DataManager.AddTodo(vm.Model) == null)
-                {
-                    return;
-                }
+                toDos.Add(vm);
                 SelectedToDo = vm;
-                await LoadToDos();
+                RefreshToDos();
             }
             catch (Exception e)
             {
@@ -83,16 +105,20 @@ namespace VM
         }
 
         [RelayCommand]
-        public async Task EditTodo(ToDoVM vm)
+        public void EditTodo(ToDoVM vm)
         {
             try
             {
-                if (await DataManager.UpdateTodo(vm.Model) == null)
+                var todo = toDos.Find(t => t.Id == vm.Id);
+                if (todo == null)
                 {
                     return;
                 }
+                todo.Title = vm.Title;
+                todo.IsDone = vm.IsDone;
+                todo.Description = vm.Description;
                 SelectedToDo = vm;
-                await LoadToDos();
+                RefreshToDos();
             }
             catch (Exception e)
             {
@@ -105,12 +131,10 @@ namespace VM
         {
             try
             {
-                if (!await DataManager.DeleteTodo(SelectedToDo.Model))
-                {
-                    return;
-                }
+                await DataManager.DeleteTodo(SelectedToDo.Model);
+                toDos.Remove(SelectedToDo);
                 SelectedToDo = null;
-                await LoadToDos();
+                RefreshToDos();
             }
             catch (Exception e)
             {
