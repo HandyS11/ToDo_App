@@ -36,11 +36,11 @@ You can find the context [here](./CONTEXT.md)
 
 | Sketchs | App |
 | --- | --- |
-| <img src="./Documentation/sketchs/HomePage.png" height="750"/> | <img src="./Documentation/screens/HomePage.png" height="750"/> |
-| <img src="./Documentation/sketchs/ToDosPage.png" height="750"/> | <img src="./Documentation/screens/ToDosPage.png" height="750"/> | 
-| <img src="./Documentation/sketchs/ToDoPage.png" height="750"/> | <img src="./Documentation/screens/ToDoPage.png" height="750"/> | 
-| <img src="./Documentation/sketchs/NewToDoPage.png" height="750"/> | <img src="./Documentation/screens/NewToDoPage.png" height="750"/> | 
-| <img src="./Documentation/sketchs/EditToDoPage.png" height="750"/> | <img src="./Documentation/screens/EditToDoPage.png" height="750"/> | 
+| <img src="./Documentation/sketchs/HomePage.png" height="750"/> | <img src="./Documentation/screens/HomePage.jpg" height="750"/> |
+| <img src="./Documentation/sketchs/ToDosPage.png" height="750"/> | <img src="./Documentation/screens/ToDosPage.jpg" height="750"/> | 
+| <img src="./Documentation/sketchs/ToDoPage.png" height="750"/> | <img src="./Documentation/screens/ToDoPage.jpg" height="750"/> | 
+| <img src="./Documentation/sketchs/NewToDoPage.png" height="750"/> | <img src="./Documentation/screens/NewToDoPage.jpg" height="750"/> | 
+| <img src="./Documentation/sketchs/EditToDoPage.png" height="750"/> | <img src="./Documentation/screens/EditToDoPage.jpg" height="750"/> | 
 </details>
 
 ## ⚙️ Architecture
