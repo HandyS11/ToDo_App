@@ -10,17 +10,14 @@ namespace Stub
         {
             toDos = new()
             {
-                new("First title", "first desc"),
-                new("Second title", "second desc"),
-                new("Third title", "third desc"),
-                new("Fourth title", "fourth desc"),
-                new("Fifth title", "fifth desc"),
-                new("Sixth title", "sixth desc"),
-                new("Seventh title", "seventh desc"),
+                new(Guid.NewGuid(), "Start the ToDo Project", true, "It shall be done correctly", DateTime.Parse("01/09/2023")),
+                new(Guid.NewGuid(), "End the ToDo Project", false, "Yes you have to!", DateTime.Parse("01/09/2023")),
+                new(Guid.NewGuid(), "Work on the ToDo app", true, "It will not be completed otherwise", DateTime.Parse("02/09/2023")),
+                new(Guid.NewGuid(), "Do a great front", false, "The front is really important", DateTime.Parse("02/09/2023")),
+                new(Guid.NewGuid(), "Do a clean back", true, "The logic shall be perfect", DateTime.Parse("02/09/2023")),
+                new(Guid.NewGuid(), "Test the code", false, "Yes.. maybe another day", DateTime.Parse("03/09/2023")),
+                new(Guid.NewGuid(), "Test the code (for real)", false, "!!!", DateTime.Parse("03/09/2023"))
             };
-            toDos[2].IsDone = true;
-            toDos[3].IsDone = true;
-            toDos[6].IsDone = true;
         }
 
         public Task AddTodo(ToDo todo)
