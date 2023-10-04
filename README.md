@@ -1,4 +1,4 @@
-# TOTO_SOGETI
+# ToDo_Sogeti
 
 ![](https://github.com/HandyS11/ToDo_Sogeti/actions/workflows/dotnet.yml/badge.svg)
 
@@ -11,15 +11,15 @@ You can find the context [here](./CONTEXT.md)
 ## 📊 Features
 
 **Done:**
-- Setup the repository & CI
-- Create the Model
-- Create the VM
-- Create the MAUI front
-
-**Not Done yet:**
-
-- Create the EF Model &/or local Databse
-- Link everything together
+- A list of ToDos (2 in deed)
+- A detail page of every ToDo
+- A edit/delete button on the detail page
+- A Add/Edit page for ToDos
+- All ToDos are save on the phone Database
+- If there's no ToDo, the database is mokecked with ToDos
+**NotDone:**
+- Test the code
+- Improve the Lycicle of the app (add an OnClose I beg)
 
 ## 🛠 Languages & tools
 
@@ -36,11 +36,11 @@ You can find the context [here](./CONTEXT.md)
 
 | Sketchs | App |
 | --- | --- |
-| <img src="./Documentation/sketchs/HomePage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> |
-| <img src="./Documentation/sketchs/ToDosPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
-| <img src="./Documentation/sketchs/ToDoPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
-| <img src="./Documentation/sketchs/NewToDoPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
-| <img src="./Documentation/sketchs/EditToDoPage.png" height="750"/> | <img src="./Documentation/screens/" height="750"/> | 
+| <img src="./Documentation/sketchs/HomePage.png" height="750"/> | <img src="./Documentation/screens/HomePage.png" height="750"/> |
+| <img src="./Documentation/sketchs/ToDosPage.png" height="750"/> | <img src="./Documentation/screens/ToDosPage.png" height="750"/> | 
+| <img src="./Documentation/sketchs/ToDoPage.png" height="750"/> | <img src="./Documentation/screens/ToDoPage.png" height="750"/> | 
+| <img src="./Documentation/sketchs/NewToDoPage.png" height="750"/> | <img src="./Documentation/screens/NewToDoPage.png" height="750"/> | 
+| <img src="./Documentation/sketchs/EditToDoPage.png" height="750"/> | <img src="./Documentation/screens/EditToDoPage.png" height="750"/> | 
 </details>
 
 ## ⚙️ Architecture

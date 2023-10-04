@@ -48,14 +48,14 @@ namespace ToDoApp.ViewModels
         [RelayCommand]
         private async Task AddToDo()
         {
-            await ToDosManagerVM.AddToDo(AddOrEditToDoVM.ToToDoVM());
+            ToDosManagerVM.AddToDo(AddOrEditToDoVM.ToToDoVM());
             await NavigateBack();
         }
 
         [RelayCommand]
         private async Task EditToDo()
         {
-            await ToDosManagerVM.EditTodo(AddOrEditToDoVM.ToToDoVM());
+            ToDosManagerVM.EditTodo(AddOrEditToDoVM.ToToDoVM());
             await NavigateBack();
         }
 

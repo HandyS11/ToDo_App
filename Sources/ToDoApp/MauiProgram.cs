@@ -1,9 +1,12 @@
 ﻿using CommunityToolkit.Maui;
+using Database;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using Model;
 using Stub;
 using ToDoApp.ViewModels;
 using VM;
+using static Android.Provider.CalendarContract;
 
 namespace ToDoApp
 {
@@ -20,7 +23,7 @@ namespace ToDoApp
                        fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                    });
 
-            builder.Services.AddSingleton<IDataManager, StubData>()
+            builder.Services.AddSingleton<IDataManager, ToDosDatabase>()    // It can be replaced with: StubData
                             .AddSingleton<ToDosManagerVM>()
                             .AddSingleton<AddOrEditToDoVM>()
                             .AddSingleton<AppVM>()

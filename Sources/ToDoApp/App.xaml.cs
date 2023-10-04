@@ -13,5 +13,13 @@ namespace ToDoApp
 
             AppVM = appVM;
         }
+
+        /*protected async override void OnSleep()
+        {
+            base.OnSleep();
+            await AppVM.ToDosManagerVM.SaveToDatabase();
+        }*/
+
+        // I would like to do it on QUIT/DESTROY but it doesn't even exist in MAUI
     }
 }
