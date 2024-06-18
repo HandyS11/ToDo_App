@@ -1,4 +1,4 @@
-# ToDo_Sogeti
+# ToDo_App
 
 ![](https://github.com/HandyS11/ToDo_Sogeti/actions/workflows/dotnet.yml/badge.svg)
 
